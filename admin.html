@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Статистика мероприятия · Молодая гвардия</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css?v=3">
+</head>
+<body>
+  <main class="admin-page">
+    <header class="admin-header"><a href="/" class="brand"><span class="brand-mark">МГ</span> Игра</a><h1>Статистика мероприятий</h1></header>
+    <p id="message" role="status" aria-live="polite"></p>
+    <section id="login-section" class="document" hidden>
+      <h2>Вход организатора</h2>
+      <form id="login-form"><label class="field"><span>Пароль</span><input id="password" type="password" autocomplete="current-password" required></label><button class="primary-button" type="submit">Войти</button></form>
+    </section>
+    <section id="dashboard" hidden>
+      <div class="admin-actions"><button id="refresh" class="secondary-button" type="button">Обновить</button><button id="export" class="secondary-button" type="button">Скачать CSV</button></div>
+      <div class="admin-columns">
+        <form id="event-form" class="document"><h2>Новое мероприятие</h2><label class="field"><span>Название мероприятия</span><input name="title" maxlength="100" required placeholder="Например, День музея"></label><button class="primary-button" type="submit">Создать</button></form>
+        <form id="session-form" class="document"><h2>Новый игровой сеанс</h2><label class="field"><span>Мероприятие</span><select name="eventId" id="event-select" required></select></label><label class="field"><span>Аудитория / группа</span><input name="title" maxlength="100" required placeholder="Например, Аудитория 1"></label><button class="primary-button" type="submit">Создать ссылку</button></form>
+      </div>
+      <section class="document admin-section"><h2>Результаты</h2><p>Победитель — участник с наименьшим временем; при равном времени выше результат с большим числом очков.</p><div class="admin-result-controls"><label class="field"><span>Показать</span><select id="filter"></select></label><button id="best-result-button" class="secondary-button" type="button" disabled>Лучший результат</button></div><p id="event-status" class="admin-event-status" role="status" hidden></p><p id="best-result-hint">Выберите мероприятие или его сеанс, чтобы увидеть лучший результат по всем аудиториям мероприятия.</p><div id="best-result" class="admin-best-result" role="status" aria-live="polite" hidden></div><div id="summary" class="admin-summary"></div><div id="session-list"></div><div id="results" class="admin-table-wrap"></div></section>
+    </section>
+  </main>
+  <script src="admin.js?v=3" defer></script>
+</body>
+</html>

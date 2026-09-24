@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191714">
+  <title>Перед игрой · Операция «Молодая гвардия»</title>
+  <style>
+    :root { color-scheme: dark; --bg: #191714; --paper: #eee5d2; --ink: #25211b; --red: #a43c33; --gold: #d9b779; --soft: #c9bdab; }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; min-height: 100%; }
+    body { font-family: "Segoe UI", Arial, sans-serif; color: var(--paper); background: var(--bg); }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .deck { min-height: 100dvh; padding: clamp(12px, 2vw, 28px) clamp(12px, 3vw, 44px) 76px; display: grid; place-items: center; }
+    .slide { position: relative; isolation: isolate; width: min(100%, 1480px); min-height: min(780px, calc(100dvh - 110px)); padding: clamp(28px, 4.5vw, 76px); display: none; flex-direction: column; justify-content: center; overflow: hidden; background: radial-gradient(circle at 90% 5%, #423527 0, transparent 41%), linear-gradient(145deg, #292521, #191714 70%); border: 1px solid #514b40; box-shadow: 0 25px 90px #0008; }
+    .slide.active { display: flex; }
+    .slide::after { content: "ДЕЛО № 85"; position: absolute; right: clamp(20px, 4vw, 60px); top: clamp(20px, 3vw, 42px); padding: 8px 14px; color: #dc8c81; border: 2px solid #a64d45; letter-spacing: .2em; font-size: clamp(.6rem, 1vw, .9rem); font-weight: 800; transform: rotate(7deg); opacity: .8; }
+    .eyebrow { color: var(--gold); text-transform: uppercase; font-size: clamp(.85rem, 1.3vw, 1.25rem); letter-spacing: .18em; font-weight: 800; margin: 0 0 20px; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+    h1 { max-width: 1100px; font-size: clamp(3.3rem, 7.8vw, 8.5rem); line-height: .99; letter-spacing: -.055em; margin: 0 0 30px; }
+    h2 { max-width: 1050px; font-size: clamp(2.6rem, 5vw, 5.2rem); line-height: 1.06; letter-spacing: -.035em; margin: 0 0 34px; }
+    h3 { font-size: clamp(1.45rem, 2vw, 2.2rem); margin: 0 0 14px; }
+    p { margin: 0; line-height: 1.4; }
+    .lead { max-width: 950px; color: #ded5c5; font-size: clamp(1.3rem, 2.3vw, 2.4rem); line-height: 1.35; }
+    .highlight { color: var(--gold); }
+    .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); width: 100%; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 22px); width: 100%; }
+    .card { background: var(--paper); color: var(--ink); border-top: 7px solid var(--red); padding: clamp(18px, 2vw, 32px); min-width: 0; }
+    .card p, .card li { font-size: clamp(1.1rem, 1.7vw, 1.75rem); }
+    .card small { display: block; margin-bottom: 10px; color: #8c2f29; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; font-size: clamp(.85rem, 1.1vw, 1.1rem); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
+    .step { padding: clamp(16px, 2vw, 30px); border: 1px solid #7a6e58; background: #302a23; font-size: clamp(1.1rem, 1.65vw, 1.7rem); line-height: 1.35; }
+    .step b { display: block; color: var(--gold); font-size: clamp(2.2rem, 3.4vw, 4rem); margin-bottom: 16px; font-family: Georgia, serif; }
+    .note { margin-top: clamp(14px, 2.4vw, 30px); border-left: 5px solid var(--gold); padding: 12px 20px; color: #eadbc0; font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.35; }
+    .rule-list { list-style: none; padding: 0; margin: 0; display: grid; gap: clamp(12px, 2vw, 24px); }
+    .rule-list li { position: relative; padding-left: 1.8em; font-size: clamp(1.4rem, 2vw, 2.15rem); line-height: 1.3; }
+    .rule-list li::before { content: "✦"; position: absolute; left: 0; color: var(--gold); }
+    .timeline { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 28px; counter-reset: chronology; }
+    .timeline li { counter-increment: chronology; display: grid; grid-template-columns: 42px 1fr; gap: 10px; align-items: center; padding: 12px 18px; color: var(--ink); background: var(--paper); font-size: clamp(1rem, 1.4vw, 1.4rem); line-height: 1.25; }
+    .timeline li::before { content: counter(chronology); color: #8b2b23; font: 700 clamp(1.5rem, 2.2vw, 2.2rem) Georgia, serif; }
+    .timeline strong { display: block; color: #7d241e; font-size: clamp(.92rem, 1.15vw, 1.2rem); }
+    .matches { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px, 1.5vw, 20px); width: 100%; }
+    .match { background: var(--paper); color: var(--ink); padding: clamp(16px, 2vw, 27px); border-left: 7px solid var(--red); }
+    .match strong { display: block; font: 500 clamp(1.5rem, 2.3vw, 2.5rem) Georgia, serif; margin-bottom: 8px; }
+    .match span { font-size: clamp(1.1rem, 1.65vw, 1.75rem); line-height: 1.3; }
+    .score { font-size: clamp(3rem, 6vw, 7rem); font-family: Georgia, serif; line-height: 1; color: var(--gold); margin-bottom: 14px; }
+    .qr-layout { display: grid; grid-template-columns: 1fr minmax(240px, 34%); gap: clamp(18px, 4vw, 55px); align-items: center; }
+    .qr-box { aspect-ratio: 1; width: min(100%, 390px); background: var(--paper); color: #5f5343; display: grid; place-items: center; text-align: center; padding: 18px; justify-self: center; font-size: clamp(1.1rem, 1.6vw, 1.6rem); }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+    .session-code { display: block; color: var(--gold); letter-spacing: .2em; font-size: clamp(1.5rem, 2.6vw, 3rem); margin-top: 18px; word-break: break-all; }
+    .presenter-tools { margin-top: 22px; padding: 14px 18px; background: #28231e; border: 1px dashed #80715c; color: #e4d5bb; font-size: clamp(.9rem, 1.1vw, 1.1rem); }
+    .presenter-tools label { display: inline-block; margin: 7px 15px 7px 0; }
+    .presenter-tools input[type="text"] { width: min(310px, 100%); padding: 8px; color: #222; background: #fff; border: 0; }
+    .presenter-tools input[type="file"] { max-width: 270px; }
+    .controls { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; min-height: 66px; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 9px; background: #11100eee; border-top: 1px solid #544b3d; }
+    .controls button { border: 1px solid #a39071; border-radius: 3px; background: #2d2924; color: var(--paper); padding: 8px 16px; min-height: 42px; }
+    .controls button:hover, .controls button:focus-visible { background: #764035; }
+    .controls button:disabled { opacity: .45; cursor: default; }
+    .controls output { min-width: 70px; text-align: center; font-variant-numeric: tabular-nums; }
+    @media (max-width: 750px) {
+      .deck { padding-bottom: 70px; }
+      .slide { min-height: calc(100dvh - 95px); padding: 56px 22px 30px; justify-content: flex-start; }
+      .slide::after { font-size: .52rem; right: 18px; top: 15px; }
+      .columns, .cards, .steps, .matches, .timeline, .qr-layout { grid-template-columns: 1fr; }
+      h2 { margin-bottom: 20px; }
+      .qr-box { width: min(100%, 240px); }
+      .controls button { padding: 7px 9px; }
+    }
+    @media (max-height: 750px) and (min-width: 751px) { .slide { padding-top: 48px; padding-bottom: 30px; } .timeline li { padding: 8px 14px; } }
+    @media print {
+      @page { size: landscape; margin: 0; }
+      html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .deck { padding: 0; display: block; }
+      .slide, .slide.active { display: flex; width: 100vw; height: 100vh; min-height: 0; padding: 4vw; break-after: page; page-break-after: always; box-shadow: none; border: 0; }
+      .slide:last-child { break-after: auto; }
+      .controls, .presenter-tools { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Презентация перед игрой">
+    <section class="slide active" aria-label="Слайд 1 из 7">
+      <p class="eyebrow">Музей «Молодая гвардия» · инструктаж перед игрой</p>
+      <h1>Операция:<br><span class="highlight">«Молодая гвардия»</span></h1>
+      <p class="lead">Сегодня вы — исследователи цифрового архива. Восстанавливайте хронологию, сопоставляйте факты и проверяйте источники.</p>
+      <p class="note">Каждый проходит игру самостоятельно на своём телефоне · ориентир — 20 минут</p>
+    </section>
+
+    <section class="slide" aria-label="Слайд 2 из 7">
+      <p class="eyebrow">Ваш маршрут</p>
+      <h2>Шесть миссий и один финал</h2>
+      <div class="steps">
+        <div class="step"><b>01–02</b>Расставьте события по времени и разгадайте учебный шифр.</div>
+        <div class="step"><b>03–04</b>Выберите путь без постов и сопоставьте людей с биографическими фактами.</div>
+        <div class="step"><b>05–06</b>Различите источники и выполните задание на внимание.</div>
+      </div>
+      <p class="note">За каждую миссию вы получаете фрагмент кода. Соберите их по порядку и введите финальное слово.</p>
+    </section>
+
+    <section class="slide" aria-label="Слайд 3 из 7">
+      <p class="eyebrow">Перед стартом</p>
+      <h2>Правила исследователя</h2>
+      <ul class="rule-list">
+        <li>Играйте самостоятельно; на входе укажите короткий псевдоним.</li>
+        <li>Ответ можно исправить: ошибка не останавливает игру.</li>
+        <li>Внутриигровая подсказка уменьшает количество очков.</li>
+        <li>Игровая реконструкция — не исторический документ.</li>
+        <li>Общее время остановится после правильного финального кода.</li>
+      </ul>
+    </section>
+
+    <section class="slide" aria-label="Слайд 4 из 7">
+      <p class="eyebrow">Как считается результат</p>
+      <h2>Точность + скорость</h2>
+      <div class="cards">
+        <div class="card"><small>За точность</small><div class="score">100</div><p>очков за миссию без ошибок</p></div>
+        <div class="card"><small>За скорость</small><div class="score">+50</div><p>максимум за оставшееся время миссии</p></div>
+        <div class="card"><small>Подсказка в игре</small><div class="score">−20</div><p>очков; неверная проверка уменьшает награду ещё на 10</p></div>
+      </div>
+      <p class="note">Главный показатель в личном зачёте — время; при одинаковом времени выше участник с большим числом очков.</p>
+    </section>
+
+    <section class="slide" aria-label="Слайд 5 из 7">
+      <p class="eyebrow">Подсказка к миссии 1 · хронология</p>
+      <h2>Что за чем происходило?</h2>
+      <ol class="timeline">
+        <li><span><strong>20 июля 1942</strong>Оккупация Краснодона</span></li>
+        <li><span><strong>Конец сентября 1942</strong>Объединение подпольных групп</span></li>
+        <li><span><strong>7 ноября 1942</strong>Красные флаги появились в городе</span></li>
+        <li><span><strong>Ночь с 5 на 6 декабря 1942</strong>Пожар на бирже труда</span></li>
+        <li><span><strong>Январь 1943</strong>Массовые аресты</span></li>
+        <li><span><strong>14 февраля 1943</strong>Освобождение Краснодона</span></li>
+      </ol>
+      <p class="note">В игре нажимайте карточки в порядке от самого раннего события к самому позднему.</p>
+    </section>
+
+    <section class="slide" aria-label="Слайд 6 из 7">
+      <p class="eyebrow">Подсказка к миссии 4 · люди и биографии</p>
+      <h2>Запомните четыре соответствия</h2>
+      <div class="matches">
+        <div class="match"><strong>Иван Туркенич</strong><span>Имел фронтовой опыт; был командиром организации.</span></div>
+        <div class="match"><strong>Любовь Шевцова</strong><span>Прошла специальную подготовку радистки.</span></div>
+        <div class="match"><strong>Сергей Тюленин</strong><span>Один из первых начал подпольную деятельность в городе.</span></div>
+        <div class="match"><strong>Ульяна Громова</strong><span>Окончила школу с отличием; входила в штаб организации.</span></div>
+      </div>
+      <p class="note">В игре подберите к каждому имени его биографический факт.</p>
+    </section>
+
+    <section class="slide" aria-label="Слайд 7 из 7">
+      <p class="eyebrow">Можно начинать</p>
+      <h2>Откройте игру своей аудитории</h2>
+      <div class="qr-layout">
+        <div>
+          <ul class="rule-list">
+            <li>Сканируйте QR-код именно вашей аудитории.</li>
+            <li>Введите псевдоним и нажмите «Начать личное прохождение».</li>
+            <li>На финальном экране дождитесь сообщения «Результат сохранён».</li>
+          </ul>
+          <strong class="session-code" id="session-code" hidden></strong>
+          <a id="session-link" href="#" hidden style="color:#eadbc0;overflow-wrap:anywhere;font-size:clamp(1rem,1.4vw,1.4rem)"></a>
+        </div>
+        <div class="qr-box" id="qr-box"><span>Ведущий добавит QR-код этой аудитории перед показом</span></div>
+      </div>
+      <div class="presenter-tools" id="presenter-tools">
+        <strong>Ведущему: настройте перед показом, затем скройте эту панель.</strong>
+        <label>Загрузить изображение QR-кода <input id="qr-file" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp"></label>
+        <label>Код сеанса <input id="session-input" type="text" maxlength="8" placeholder="Необязательно"></label>
+        <button id="hide-tools" type="button">Скрыть настройки</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Управление презентацией">
+    <button id="prev" type="button" aria-label="Предыдущий слайд">← Назад</button>
+    <output id="counter" aria-live="polite">1 / 7</output>
+    <button id="next" type="button" aria-label="Следующий слайд">Далее →</button>
+    <button id="fullscreen" type="button" title="На весь экран">⛶ Экран</button>
+  </nav>
+  <script>
+    "use strict";
+    const slides = [...document.querySelectorAll(".slide")];
+    const counter = document.querySelector("#counter");
+    let current = 0;
+    function show(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove("active");
+      slides[current].setAttribute("aria-hidden", "true");
+      current = index;
+      slides[current].classList.add("active");
+      slides[current].removeAttribute("aria-hidden");
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      document.querySelector("#prev").disabled = current === 0;
+      document.querySelector("#next").disabled = current === slides.length - 1;
+      window.scrollTo(0, 0);
+    }
+    document.querySelector("#prev").addEventListener("click", () => show(current - 1));
+    document.querySelector("#next").addEventListener("click", () => show(current + 1));
+    document.querySelector("#fullscreen").addEventListener("click", async () => {
+      try { if (document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); } catch { /* полноэкранный режим необязателен */ }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.target instanceof HTMLInputElement) return;
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") { event.preventDefault(); show(current + 1); }
+      if (event.key === "ArrowLeft" || event.key === "PageUp") { event.preventDefault(); show(current - 1); }
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+    let qrObjectUrl;
+    document.querySelector("#qr-file").addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (!file || !["image/png", "image/jpeg", "image/svg+xml", "image/webp"].includes(file.type)) return;
+      if (qrObjectUrl) URL.revokeObjectURL(qrObjectUrl);
+      qrObjectUrl = URL.createObjectURL(file);
+      const image = document.createElement("img");
+      image.src = qrObjectUrl;
+      image.alt = "QR-код для входа в игру этой аудитории";
+      document.querySelector("#qr-box").replaceChildren(image);
+    });
+    document.querySelector("#session-input").addEventListener("input", (event) => {
+      const code = event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8);
+      event.target.value = code;
+      const output = document.querySelector("#session-code");
+      output.textContent = `Код сеанса: ${code}`;
+      output.hidden = !code;
+      const link = document.querySelector("#session-link");
+      link.href = `https://molodaya-gvardiya-game.vercel.app/?session=${encodeURIComponent(code)}`;
+      link.textContent = link.href;
+      link.hidden = code.length !== 8;
+    });
+    document.querySelector("#hide-tools").addEventListener("click", () => { document.querySelector("#presenter-tools").hidden = true; });
+    show(0);
+  </script>
+</body>
+</html>

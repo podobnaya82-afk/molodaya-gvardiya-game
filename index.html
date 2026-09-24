@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#191714">
+  <meta name="description" content="Интерактивная музейная игра «Операция: Молодая гвардия»">
+  <title>Операция: «Молодая гвардия»</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="paper-noise" aria-hidden="true"></div>
+  <header class="topbar" id="topbar" hidden>
+    <a class="brand" href="#" id="home-link" aria-label="На главный экран">
+      <span class="brand-mark">МГ</span>
+      <span>Цифровой архив</span>
+    </a>
+    <div class="status-strip">
+      <span id="mission-count">Миссия 1/6</span>
+      <span class="status-score"><span id="score">0</span> очков</span>
+      <span class="timer" id="timer" aria-live="polite">01:30</span>
+    </div>
+  </header>
+
+  <div class="progress-track" id="progress-track" hidden aria-hidden="true">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <span>Музей «Молодая гвардия»</span>
+    <button class="text-button" id="about-button" type="button">Об игре</button>
+  </footer>
+
+  <dialog id="about-dialog">
+    <button class="dialog-close" type="button" data-close-dialog aria-label="Закрыть">×</button>
+    <p class="eyebrow">Справка</p>
+    <h2>История требует точности</h2>
+    <p>Игра знакомит с историей краснодонского подполья и учит различать исторический источник, воспоминание и художественное произведение.</p>
+    <p>Маршрут и шифровальные задания являются игровыми реконструкциями. Они не воспроизводят конкретные операции подпольщиков.</p>
+    <p>Перед публичным использованием формулировки и даты должны пройти научную проверку сотрудниками музея.</p>
+  </dialog>
+
+  <noscript>
+    <div class="noscript">Для игры необходимо включить JavaScript в настройках браузера.</div>
+  </noscript>
+  <script src="app.js?v=2"></script>
+</body>
+</html>

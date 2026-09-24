@@ -1,0 +1,30 @@
+.admin-page { max-width: 1200px; margin: auto; padding: 2rem clamp(1rem,4vw,3rem) 5rem; }
+.admin-header { color: var(--paper-light); display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+.admin-header h1 { margin: 0; font-family: var(--serif); }
+.admin-page .document { padding: clamp(1rem,3vw,2rem); margin-bottom: 1.25rem; }
+.admin-page .document h2 { margin-top: 0; }
+.admin-page #login-section { max-width: 480px; }
+.admin-page #message { color: var(--paper-light); min-height: 1.5em; }
+.admin-actions, .admin-columns, .admin-summary { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.admin-actions #refresh, .admin-actions #export { color: var(--ink); background: #fff; border-color: #fff; }
+.admin-actions #refresh:hover, .admin-actions #export:hover { background: #eee; border-color: #eee; }
+.admin-columns > * { flex: 1 1 300px; }
+.admin-summary > div { padding: 1rem; flex: 1 1 155px; background: rgba(180,147,82,.14); }
+.admin-summary strong { display: block; font-size: 1.5rem; }
+.admin-section .field { max-width: 500px; }
+.admin-result-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-bottom: 1rem; }
+.admin-result-controls .field { flex: 1 1 260px; margin-bottom: 0; }
+.admin-result-controls #best-result-button { color: var(--ink); background: #fff; }
+.admin-result-controls #best-result-button:hover:not(:disabled) { background: #eee; }
+.admin-result-controls #best-result-button:disabled { cursor: not-allowed; opacity: .55; }
+.admin-event-status { padding: .75rem 1rem; background: rgba(180,147,82,.14); }
+.admin-event-status.ended { color: var(--red-dark); font-weight: 700; }
+.admin-best-result { margin-bottom: 1rem; padding: 1rem; background: rgba(180,147,82,.14); border-left: 4px solid var(--gold); }
+.admin-best-result h3 { margin: 0 0 .5rem; }
+.admin-best-result p { margin: .4rem 0 0; }
+.admin-table-wrap { overflow-x: auto; }
+.admin-table { border-collapse: collapse; width: 100%; min-width: 620px; }
+.admin-table th, .admin-table td { border-bottom: 1px solid var(--paper-dark); padding: .7rem; text-align: left; }
+.session-link { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .6rem 0; overflow-wrap: anywhere; }
+.session-link a { color: var(--red-dark); }
+.session-link button { cursor: pointer; }
