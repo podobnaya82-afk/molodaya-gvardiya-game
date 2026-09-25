@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191714">
+  <meta name="description" content="Интерактивная рабочая тетрадь проекта «Операция: Молодая гвардия»">
+  <title>Паспорт проекта · Операция «Молодая гвардия»</title>
+  <link rel="stylesheet" href="workbook.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">МГ</span><span>Операция: проект</span></a>
+    <div class="top-actions"><span id="save-state">Сохранено на этом устройстве</span><button id="reset-button" class="text-button" type="button">Начать заново</button></div>
+  </header>
+  <main class="layout">
+    <aside class="map" aria-label="Карта операции">
+      <p class="eyebrow">Дело № 85 · маршрут автора</p>
+      <h1>Паспорт<br><em>проекта</em></h1>
+      <p class="intro">Пройдите шесть этапов и соберите из рабочей тетради ясный план реального внедрения.</p>
+      <nav id="module-nav"></nav>
+      <div class="progress-box"><div class="progress-label"><span>Готовность дела</span><strong id="progress-text">0%</strong></div><div class="progress"><i id="progress-bar"></i></div></div>
+    </aside>
+    <section class="workspace">
+      <div id="module-content"></div>
+      <div class="workspace-actions"><button id="back-button" class="secondary" type="button">← Назад</button><button id="next-button" class="primary" type="button">Проверить этап →</button></div>
+    </section>
+  </main>
+  <dialog id="reset-dialog"><h2>Начать новый проект?</h2><p>Текущие ответы будут удалены только на этом устройстве.</p><button id="cancel-reset" class="secondary" type="button">Отмена</button> <button id="confirm-reset" class="primary" type="button">Удалить ответы</button></dialog>
+  <script src="workbook.js"></script>
+</body>
+</html>
